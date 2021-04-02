@@ -3,18 +3,18 @@
  */
 const Model = require('./modules/model');
 
-class ProviderController{
-    providers = {};
+function Store(){
+    this.providers = {};
 
     // cria um novo provider
-    create(name, state = {}){
+    this.create = function(name, state = {}){
         if(this.providers[name]) return this.providers[name];
         this.providers[name] = new Model(state);
         return this.providers[name];
     }
 
     // captura um provider baseado em seu nome
-    get(name){
+    this.get = function(name){
         if(this.providers[name]) return this.providers[name];
         return null;
     }
@@ -25,14 +25,14 @@ if(typeof(window) == 'undefined'){
 }
 
 if (window && !window.providerController){
-    window.providerController = new ProviderController();
+    window.providerController = new Store();
 }
 
-ProviderController.Model = Model;
-ProviderController.Controller = window ? window.providerController : new ProviderController();
-ProviderController.Provider = window ? window.providerController.providers : ProviderController.Controller.providers;
-ProviderController.createProvider = (name, state = {})=>{
-    return ProviderController.Controller.create(name, state);
+Store.Model = Model;
+Store.Controller = window ? window.providerController : new Store();
+Store.Provider = window ? window.providerController.providers : Store.Controller.providers;
+Store.createProvider = function(name, state = {}){
+    return Store.Controller.create(name, state);
 }
 
-module.exports = ProviderController;
+module.exports = Store;
