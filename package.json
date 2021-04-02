@@ -1,0 +1,25 @@
+{
+  "name": "@goori-soft/react-provider",
+  "version": "0.0.1",
+  "description": "Simple state provider for react",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goori-soft/react-provider.git"
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "provider"
+  ],
+  "author": "Lucas Machado Rodrigues (Goori)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goori-soft/react-provider/issues"
+  },
+  "homepage": "https://github.com/goori-soft/react-provider#readme"
+}
