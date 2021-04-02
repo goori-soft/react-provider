@@ -3,9 +3,9 @@ const events = require('events');
 function Model(state = {}){
     this.state = {...state};
     this.attached = [];
-    this.eventEmitter = new events.EventEmitter();
+    const eventEmitter = new events.EventEmitter();
 
-    attach = function(reactComponent){
+    this.attach = function(reactComponent){
         if(reactComponent && typeof(reactComponent.forceUpdate) == 'function' && !this.getAttached(reactComponent)){
 
             // creates a attParams to attach
@@ -19,7 +19,7 @@ function Model(state = {}){
 
             const provider = this;
 
-            provider.eventEmitter.on('stateChange', attParams.listener);
+            eventEmitter.on('stateChange', attParams.listener);
 
             const reactComponentWillUnmount = reactComponent.componentWillUnmount;
             reactComponent.componentWillUnmount = function(){
@@ -33,10 +33,10 @@ function Model(state = {}){
     }
 
     // detach a react component
-    detach = function(reactComponent){
+    this.detach = function(reactComponent){
         let attParams = this.getAttached(reactComponent);
         if(attParams){
-            this.eventEmitter.removeListener('stateChange', attParams.listener);
+            eventEmitter.removeListener('stateChange', attParams.listener);
             this.attached = this.attached.filter( item => {
                 return item !== attParams;
             });
@@ -44,7 +44,7 @@ function Model(state = {}){
     }
 
     // returns the attached react component
-    getAttached = function(reactComponent){
+    this.getAttached = function(reactComponent){
         
         let attParams = this.attached.find( attParams => {
             return attParams.component === reactComponent;
@@ -54,11 +54,11 @@ function Model(state = {}){
     }
 
     this.on = function(eventName, callback){
-        if (typeof(callback) == 'function') this.eventEmitter.on(eventName, callback);
+        if (typeof(callback) == 'function') eventEmitter.on(eventName, callback);
     }
 
     this.removeListener = function(eventName, callback){
-        this.eventEmitter.removeListener(eventName, callback);
+        eventEmitter.removeListener(eventName, callback);
     }
 
     this.setState = function(state = {}){
@@ -72,7 +72,7 @@ function Model(state = {}){
 
         if (hasChange){
             this.state = {...state};
-            this.eventEmitter.emit('stateChange', this.state);
+            eventEmitter.emit('stateChange', this.state);
         }
     }
 
