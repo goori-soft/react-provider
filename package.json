@@ -1,6 +1,6 @@
 {
   "name": "@goori-soft/react-provider",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple state provider for react",
   "main": "index.js",
   "scripts": {
