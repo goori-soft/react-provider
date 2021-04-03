@@ -34,7 +34,7 @@ Store.Model = Model;
 Store.Store = window ? window.gooriStore : new Store();
 Store.Provider = window ? window.gooriStore.providers : Store.Store.providers;
 Store.createProvider = function(name, state = {}){
-    return Store.Controller.create(name, state);
+    return Store.Store.create(name, state);
 }
 
 module.exports = Store;
