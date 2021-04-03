@@ -1,10 +1,10 @@
-const Provider = require('./index.js');
+const {Store} = require('./index.js');
 
-const user = Provider.createProvider('user', {});
+const user = Store.createProvider('user', {});
 
 user.setState({age: 1});
 
 console.log(user.state.age);
 
-const me = Provider.createProvider('user', {age: 36});
+const me = Store.createProvider('user', {age: 36});
 console.log(me.state.age);

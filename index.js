@@ -1,5 +1,5 @@
 /**
- * ProviderController
+ * store
  */
 const Model = require('./modules/model');
 
@@ -13,6 +13,8 @@ function Store(){
         return this.providers[name];
     }
 
+    this.createProvider = this.create;
+
     // captura um provider baseado em seu nome
     this.get = function(name){
         if(this.providers[name]) return this.providers[name];
@@ -24,13 +26,13 @@ if(typeof(window) == 'undefined'){
     var window = null;
 }
 
-if (window && !window.providerController){
-    window.providerController = new Store();
+if (window && !window.gooriStore){
+    window.gooriStore = new Store();
 }
 
 Store.Model = Model;
-Store.Controller = window ? window.providerController : new Store();
-Store.Provider = window ? window.providerController.providers : Store.Controller.providers;
+Store.Store = window ? window.gooriStore : new Store();
+Store.Provider = window ? window.gooriStore.providers : Store.Store.providers;
 Store.createProvider = function(name, state = {}){
     return Store.Controller.create(name, state);
 }
